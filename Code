@@ -1,0 +1,63 @@
+local ContextActionService = game:GetService("ContextActionService")
+
+ContextActionService:BindActionAtPriority("DisablePeriod", function()
+	return Enum.ContextActionResult.Sink
+end, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.Period)
+
+local cam = workspace.CurrentCamera
+
+local cf
+
+local cfr
+
+local doe = false
+
+local d = false
+
+local function head()
+	local p = game.Players.LocalPlayer
+	local c = p.Character or p.CharacterAdded:Wait()
+	return c:WaitForChild'Head'
+end
+
+local function hum()
+	local p = game.Players.LocalPlayer
+	local c = p.Character or p.CharacterAdded:Wait()
+	return c:WaitForChild'HumanoidRootPart'
+end
+
+game:GetService('RunService').RenderStepped:Connect(function()
+	if doe then
+		cam.CFrame = head().CFrame * cf
+	end
+	if d then
+		cam.CFrame = hum().CFrame * cfr
+	end
+end)
+local UIS = game:GetService("UserInputService")
+local gs = game:GetService('GuiService')
+UIS.InputBegan:Connect(function(key,e)
+	if key.KeyCode == Enum.KeyCode.Comma then workspace.CurrentCamera:PanUnits(-1) end
+	if key.KeyCode == Enum.KeyCode.Period then workspace.CurrentCamera:PanUnits(1) end
+	if key.KeyCode == Enum.KeyCode.Equals then
+		local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+		local h = c:WaitForChild'HumanoidRootPart'
+		h.CFrame = h.CFrame * CFrame.Angles(0,math.rad(180),0)
+	end
+	if key.KeyCode == Enum.KeyCode.Minus then
+		local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+		local h = c:WaitForChild'HumanoidRootPart'
+		h.CFrame = h.CFrame * CFrame.Angles(0,0,math.rad(180))
+	end
+	if key.KeyCode == Enum.KeyCode.F1 then
+		cf = head().CFrame:ToObjectSpace(cam.CFrame)
+		doe = not doe
+	end
+	if key.KeyCode == Enum.KeyCode.F2 then
+		cfr = hum().CFrame:ToObjectSpace(cam.CFrame)
+		d = not d
+	end
+	if (key.KeyCode == Enum.KeyCode.LeftControl and UIS:IsKeyDown(Enum.KeyCode.B)) or (key.KeyCode == Enum.KeyCode.B and UIS:IsKeyDown(Enum.KeyCode.LeftControl)) then
+		gs:SetEmotesMenuOpen(not gs:GetEmotesMenuOpen())
+	end
+end)
