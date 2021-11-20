@@ -37,27 +37,29 @@ end)
 local UIS = game:GetService("UserInputService")
 local gs = game:GetService('GuiService')
 UIS.InputBegan:Connect(function(key,e)
-	if key.KeyCode == Enum.KeyCode.Comma then workspace.CurrentCamera:PanUnits(-1) end
-	if key.KeyCode == Enum.KeyCode.Period then workspace.CurrentCamera:PanUnits(1) end
-	if key.KeyCode == Enum.KeyCode.Equals then
-		local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-		local h = c:WaitForChild'HumanoidRootPart'
-		h.CFrame = h.CFrame * CFrame.Angles(0,math.rad(180),0)
-	end
-	if key.KeyCode == Enum.KeyCode.Minus then
-		local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-		local h = c:WaitForChild'HumanoidRootPart'
-		h.CFrame = h.CFrame * CFrame.Angles(0,0,math.rad(180))
-	end
-	if key.KeyCode == Enum.KeyCode.F1 then
-		cf = head().CFrame:ToObjectSpace(cam.CFrame)
-		doe = not doe
-	end
-	if key.KeyCode == Enum.KeyCode.F2 then
-		cfr = hum().CFrame:ToObjectSpace(cam.CFrame)
-		d = not d
-	end
-	if (key.KeyCode == Enum.KeyCode.LeftControl and UIS:IsKeyDown(Enum.KeyCode.B)) or (key.KeyCode == Enum.KeyCode.B and UIS:IsKeyDown(Enum.KeyCode.LeftControl)) then
-		gs:SetEmotesMenuOpen(not gs:GetEmotesMenuOpen())
+	if not UIS:GetFocusedTextBox() then
+		if key.KeyCode == Enum.KeyCode.Comma then workspace.CurrentCamera:PanUnits(-1) end
+		if key.KeyCode == Enum.KeyCode.Period then workspace.CurrentCamera:PanUnits(1) end
+		if key.KeyCode == Enum.KeyCode.Equals then
+			local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+			local h = c:WaitForChild'HumanoidRootPart'
+			h.CFrame = h.CFrame * CFrame.Angles(0,math.rad(180),0)
+		end
+		if key.KeyCode == Enum.KeyCode.Minus then
+			local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+			local h = c:WaitForChild'HumanoidRootPart'
+			h.CFrame = h.CFrame * CFrame.Angles(0,0,math.rad(180))
+		end
+		if key.KeyCode == Enum.KeyCode.F1 then
+			cf = head().CFrame:ToObjectSpace(cam.CFrame)
+			doe = not doe
+		end
+		if key.KeyCode == Enum.KeyCode.F2 then
+			cfr = hum().CFrame:ToObjectSpace(cam.CFrame)
+			d = not d
+		end
+		if (key.KeyCode == Enum.KeyCode.LeftControl and UIS:IsKeyDown(Enum.KeyCode.B)) or (key.KeyCode == Enum.KeyCode.B and UIS:IsKeyDown(Enum.KeyCode.LeftControl)) then
+			gs:SetEmotesMenuOpen(not gs:GetEmotesMenuOpen())
+		end
 	end
 end)
